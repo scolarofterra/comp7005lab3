@@ -1,19 +1,19 @@
-from django.test import TestCase
-import pdb
 from django.urls import reverse
 from rest_framework.test import APITestCase, APIClient
 from rest_framework.views import status
 from .models import Songs
 from .serializers import SongsSerializer
-# Create your tests here.
-pdb.set_trace(
-            class BaseViewTest(APITestCase):
-                    client = APIClient()
+
+# tests for views
+
+
+class BaseViewTest(APITestCase):
+    client = APIClient()
 
     @staticmethod
     def create_song(title="", artist=""):
         if title != "" and artist != "":
-              Songs.objects.create(title=title, artist=artist)
+            Songs.objects.create(title=title, artist=artist)
 
     def setUp(self):
         # add test data
@@ -39,5 +39,3 @@ class GetAllSongsTest(BaseViewTest):
         serialized = SongsSerializer(expected, many=True)
         self.assertEqual(response.data, serialized.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-)
